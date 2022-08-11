@@ -7,7 +7,7 @@ services:
         deploy:
             replicas: 1
         volumes:
-            - /mariadb_data:/var/lib/mysql
+            - /mnt/nfsshare/docker/moodle/mariadb_data:/var/lib/mysql
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: m00dle
@@ -27,7 +27,7 @@ services:
         deploy:
             replicas: 2
         volumes:
-            - /moodle_data:/var/lib/html
+            - /mnt/nfsshare/docker/moodle/moodle_data:/var/lib/html
         networks:
             - moodle
 
