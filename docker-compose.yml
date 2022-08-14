@@ -1,11 +1,14 @@
-version: '3' 
-services: 
-    db: 
+version: '3.2'
+services:
+    db:
         image: mariadb:latest
         ports:
             - 3306:3306
         deploy:
             replicas: 1
+            placement:
+              constraints:
+              - node.role == worker
         volumes:
             - /mnt/nfsshare/docker/moodle/mariadb_data:/var/lib/mysql
         restart: always
@@ -22,10 +25,13 @@ services:
             - db
         image: tegarshndrn/moodle:latest
         ports:
-            - "80:80"
+            - "82:80"
         restart: always
         deploy:
             replicas: 2
+            placement:
+              constraints:
+              - node.role == worker
         volumes:
             - /mnt/nfsshare/docker/moodle/moodle_data:/var/lib/html
         networks:
@@ -37,3 +43,4 @@ volumes:
 
 networks:
     moodle:
+
